@@ -1,0 +1,50 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Libre+Baskerville:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+@theme {
+  --color-bg-primary: #171613;
+  --color-bg-secondary: #1e1c1a;
+  --color-bg-card: #262321;
+  --color-bg-input: #2e2b28;
+  --color-border-primary: #3e3a36;
+  --color-border-secondary: #434341;
+  --color-border-input: #524c48;
+  --color-border-muted: #333230;
+  --color-accent: #c15f3c;
+  --color-accent-hover: #d97858;
+  --color-accent-bg: #33251e;
+  --color-text-primary: #f7f6f2;
+  --color-text-secondary: #b5ada4;
+  --color-text-muted: #8b8078;
+  --color-text-dim: #6a645e;
+  --color-text-disabled: #524c48;
+  --color-success: #22a86f;
+  --color-success-bg: rgba(34, 168, 111, 0.1);
+  --color-warning: #ca8f32;
+  --font-sans: 'IBM Plex Sans', sans-serif;
+  --font-serif: 'Libre Baskerville', serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+html, body {
+  background-color: #171613;
+  color: #f7f6f2;
+  font-family: 'IBM Plex Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* { scrollbar-width: thin; scrollbar-color: #524c48 transparent; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #524c48; border-radius: 3px; }
+
+@keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+.animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+.animate-slide-up { animation: slideUp 0.5s ease-out forwards; }
+.animate-pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+.animate-shimmer { background: linear-gradient(90deg, #2e2b28 25%, #3e3a36 50%, #2e2b28 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
