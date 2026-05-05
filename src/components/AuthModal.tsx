@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { X, Mail, Lock, User } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export default function AuthModal({ onClose }: { onClose: () => void }) {
@@ -14,7 +15,7 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push("/");
+    router.push(`/auth/otp?email=${encodeURIComponent(email)}`);
   };
 
   return (
@@ -29,12 +30,7 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
         <div className="px-[92px] py-12">
           {/* Logo */}
           <div className="flex justify-center mb-10">
-            <svg width="200" height="60" viewBox="0 0 200 60" fill="none">
-              <text x="55" y="45" fontFamily="Libre Baskerville" fontWeight="700" fontSize="36" fill="#c15f3c">Augle</text>
-              <circle cx="25" cy="30" r="20" fill="#c15f3c" opacity="0.9"/>
-              <path d="M25 10 L36 24 L25 50 L14 24Z" fill="#171613" opacity="0.3"/>
-              <circle cx="25" cy="26" r="8" stroke="#171613" strokeWidth="1.5" fill="none" opacity="0.4"/>
-            </svg>
+            <Image src="/auth-logo.png" alt="Augle" width={200} height={60} />
           </div>
 
           {/* Toggle */}

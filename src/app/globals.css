@@ -1,5 +1,5 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Libre+Baskerville:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
 
 @theme {
   --color-bg-primary: #171613;
@@ -45,6 +45,65 @@ html, body {
 @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
 
 .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+
+.logo-beta { font-size: 13px; letter-spacing: 0.22em; }
+.logo-wordmark { font-size: 88px; line-height: 1; }
+.logo-registered { font-size: 20px; }
+.logo-tagline { font-size: 20px; }
+
+.text-warning-amber { color: #ca8f32; }
+.text-confirmed-green { color: #22a86f; }
+
+/* Agent bubble backgrounds + dark label */
+.agent-C  { background-color: #22a86f; color: #171613; }
+.agent-M  { background-color: #ca8f32; color: #171613; }
+.agent-CT { background-color: #8b5cf6; color: #171613; }
+.agent-S  { background-color: #c15f3c; color: #171613; }
+.agent-P  { background-color: #3b82f6; color: #171613; }
+.agent-G  { background-color: #8b8078; color: #171613; }
+
+/* Agent tooltip / heading name colors */
+.agent-name-C            { color: #22a86f; }
+.agent-name-M            { color: #ca8f32; }
+.agent-name-CT           { color: #8b5cf6; }
+.agent-name-S            { color: #c15f3c; }
+.agent-name-P            { color: #3b82f6; }
+.agent-name-G            { color: #8b8078; }
+.agent-name-Cartographer { color: #22a86f; }
+.agent-name-Methodologist{ color: #ca8f32; }
+.agent-name-Contrarian   { color: #8b5cf6; }
+.agent-name-Synthesizer  { color: #3b82f6; }
+.agent-name-Pragmatist   { color: #22a86f; }
+.agent-name-Ledger       { color: #c15f3c; }
+
+/* Agent bottom-card dot / bubble colors */
+.agent-dot-Cartographer  { background-color: #22a86f; color: #171613; }
+.agent-dot-Methodologist { background-color: #ca8f32; color: #171613; }
+.agent-dot-Contrarian    { background-color: #8b5cf6; color: #171613; }
+.agent-dot-Synthesizer   { background-color: #3b82f6; color: #171613; }
+.agent-dot-Pragmatist    { background-color: #22a86f; color: #171613; }
+.agent-dot-Ledger        { background-color: #c15f3c; color: #171613; }
+
+/* Agent bottom-card backgrounds */
+.agent-card-streaming { background-color: #232320; }
+.agent-card-active    { background-color: #2d1f18; }
+
+/* Agent bottom-card border colors (border must be set via outline-based helper) */
+.agent-border-Cartographer  { border-color: #22a86f55; }
+.agent-border-Methodologist { border-color: #ca8f3255; }
+.agent-border-Contrarian    { border-color: #8b5cf655; }
+.agent-border-Synthesizer   { border-color: #3b82f655; }
+.agent-border-Pragmatist    { border-color: #22a86f55; }
+.agent-border-Ledger        { border-color: #c15f3c; }
+
+/* Guardian spinner */
+.guardian-spin { animation: spin 3s linear infinite; }
+@keyframes spin { to { rotate: 360deg; } }
+
+/* Streaming dot delays */
+.stream-dot-1 { animation-delay: 0s; }
+.stream-dot-2 { animation-delay: 0.2s; }
+.stream-dot-3 { animation-delay: 0.4s; }
 .animate-slide-up { animation: slideUp 0.5s ease-out forwards; }
 .animate-pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
 .animate-shimmer { background: linear-gradient(90deg, #2e2b28 25%, #3e3a36 50%, #2e2b28 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }

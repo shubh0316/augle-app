@@ -3,7 +3,7 @@ import { Search, ArrowUp } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function SearchBar({ placeholder = "Find a Polymarket or Kalshi contract", compact = false }: { placeholder?: string; compact?: boolean }) {
+export default function SearchBar({ placeholder = "Find a Polymarket or Kalshi contract", compact = false, fullWidth = false }: { placeholder?: string; compact?: boolean; fullWidth?: boolean }) {
   const [query, setQuery] = useState("");
   const router = useRouter();
 
@@ -13,7 +13,7 @@ export default function SearchBar({ placeholder = "Find a Polymarket or Kalshi c
   };
 
   return (
-    <form onSubmit={handleSubmit} className={`flex w-full ${compact ? "max-w-[932px]" : "max-w-[726px]"}`}>
+    <form onSubmit={handleSubmit} className={`flex w-full ${fullWidth ? "" : compact ? "max-w-[932px]" : "max-w-[726px]"}`}>
       <div className="flex-1 bg-bg-input border border-border-input/50 rounded-l-lg flex items-center gap-3 px-4 h-[53px]">
         <Search size={20} className="text-text-dim shrink-0" />
         <input
