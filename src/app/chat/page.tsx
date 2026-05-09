@@ -492,8 +492,12 @@ function ChatContent() {
                       <p className="text-[11px] font-medium" style={{ color: card.nameColor, opacity: 0.7 }}>{card.task}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-[11px]" style={{ color: card.statusColor }}>{card.status}</p>
-                      <p className="text-[11px]" style={{ color: card.nameColor, opacity: 0.6 }}>{card.model}</p>
+                      <div className="flex items-center gap-1.5 justify-end">
+                        {card.status === "Streaming" && (
+                          <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: card.statusColor }} />
+                        )}
+                        <p className="text-[11px]" style={{ color: card.statusColor }}>{card.status}</p>
+                      </div>
                     </div>
                   </div>
                   {/* Card content */}
@@ -516,7 +520,7 @@ function ChatContent() {
                     ) : (
                       <div className="space-y-3">
                         {[187, 210, 210].map((w, i) => (
-                          <div key={i} className="h-[18px] rounded-[3px]" style={{ width: w, background: "#262321" }} />
+                          <div key={i} className="h-[18px] rounded-[3px] animate-pulse" style={{ width: w, background: "#3a3633" }} />
                         ))}
                       </div>
                     )}
