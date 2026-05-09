@@ -4,6 +4,8 @@ import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Search, ChevronRight, SlidersHorizontal, AlertTriangle, Check, TrendingUp, Clock } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import Lottie from "lottie-react";
+import loader09Animation from "@/assets/loader09.json";
 
 import cartographerImg from "@/assets/gemini-cartographer.png";
 import methodologistImg from "@/assets/chatgpt-methodologist.png";
@@ -32,16 +34,7 @@ function AgentImg({ name, size = 28 }: { name: string; size?: number }) {
 
 /* ── Guardian spinner ────────────────────────────────────────── */
 function GuardianSpinner() {
-  return (
-    <div className="relative shrink-0" style={{ width: 22, height: 22 }}>
-      <svg className="guardian-spin" width="22" height="22" viewBox="0 0 22 22" fill="none">
-        <circle cx="11" cy="11" r="9" stroke={ACCENT} strokeWidth="1.2" strokeDasharray="3 2.5" strokeLinecap="round" />
-      </svg>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-[10px] h-[10px] rounded-full" style={{ background: ACCENT, opacity: 0.85 }} />
-      </div>
-    </div>
-  );
+  return <Lottie animationData={loader09Animation} loop autoplay style={{ width: 22, height: 22 }} />;
 }
 
 /* ── Messages (Conversation tab) ─────────────────────────────── */

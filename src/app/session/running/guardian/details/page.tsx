@@ -13,7 +13,7 @@ import pragmatistImg from "@/assets/grok-pragmatist.png";
 import ledgerImg from "@/assets/logo.png";
 import flagImg from "@/assets/flag.png";
 import Lottie from "lottie-react";
-import guardianAnimation from "@/assets/gaurdian.json";
+import loader09Animation from "@/assets/loader09.json";
 
 function AgentImg({ name, size }: { name: string; size: number }) {
   const map: Record<string, Parameters<typeof Image>[0]["src"]> = {
@@ -30,7 +30,7 @@ function AgentImg({ name, size }: { name: string; size: number }) {
 }
 
 function GuardianSpinner() {
-  return <Lottie animationData={guardianAnimation} loop autoplay style={{ width: 32, height: 32 }} />;
+  return <Lottie animationData={loader09Animation} loop autoplay style={{ width: 32, height: 32 }} />;
 }
 
 const BOTTOM_CARDS = [
@@ -210,7 +210,7 @@ function DetailsModal({ onClose }: { onClose: () => void }) {
         {/* Guardian block */}
         <div className="px-5 pb-4">
           <div className="flex items-start gap-3 mb-3">
-            <Lottie animationData={guardianAnimation} loop autoplay style={{ width: 32, height: 32, flexShrink: 0 }} />
+            <Lottie animationData={loader09Animation} loop autoplay style={{ width: 32, height: 32, flexShrink: 0 }} />
             <div>
               <p className="font-serif font-bold text-[16px] text-[#f7f6f2] leading-none mb-1.5">Guardian</p>
               <p className="text-[#c15f3c] text-[13px] italic leading-snug">

@@ -6,6 +6,7 @@ import Lottie from "lottie-react";
 import Navbar from "@/components/Navbar";
 import { MoreHorizontal } from "lucide-react";
 import loaderAnimation from "@/assets/loader-20.json";
+import loader09Animation from "@/assets/loader09.json";
 import polymarketImg from "@/assets/polymarket.png";
 import cartographerImg from "@/assets/gemini-cartographer.png";
 import methodologistImg from "@/assets/chatgpt-methodologist.png";
@@ -14,8 +15,6 @@ import synthesizerImg from "@/assets/synthesizer.png";
 import pragmatistImg from "@/assets/grok-pragmatist.png";
 import augleImg from "@/assets/augle-icon.png";
 import flagImg from "@/assets/flag.png";
-import Lottie from "lottie-react";
-import guardianAnimation from "@/assets/gaurdian.json";
 
 function AgentImg({ name, size }: { name: string; size: number }) {
   const map: Record<string, Parameters<typeof Image>[0]["src"]> = {
@@ -34,7 +33,7 @@ function AgentImg({ name, size }: { name: string; size: number }) {
 
 /* ─── Guardian spinner ───────────────────────────────────────── */
 function GuardianSpinner() {
-  return <Lottie animationData={guardianAnimation} loop autoplay style={{ width: 32, height: 32 }} />;
+  return <Lottie animationData={loader09Animation} loop autoplay style={{ width: 32, height: 32 }} />;
 }
 
 /* ─── Bottom processing cards ────────────────────────────────── */

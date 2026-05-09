@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import { MoreHorizontal, X, ArrowUp } from "lucide-react";
 
 import Lottie from "lottie-react";
-import guardianAnimation from "@/assets/gaurdian.json";
+import loader09Animation from "@/assets/loader09.json";
 import cartographerImg from "@/assets/gemini-cartographer.png";
 import methodologistImg from "@/assets/chatgpt-methodologist.png";
 import contrarianImg from "@/assets/claude-contrarian.png";
@@ -29,7 +29,7 @@ function AgentImg({ name, size }: { name: string; size: number }) {
 }
 
 function GuardianSpinner() {
-  return <Lottie animationData={guardianAnimation} loop autoplay style={{ width: 32, height: 32 }} />;
+  return <Lottie animationData={loader09Animation} loop autoplay style={{ width: 32, height: 32 }} />;
 }
 
 /* ─── Agent pill colors ──────────────────────────────────────── */

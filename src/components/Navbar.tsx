@@ -25,15 +25,7 @@ export default function Navbar({ isLoggedIn = false }: { isLoggedIn?: boolean })
       <div className="flex items-center gap-3">
         {isLoggedIn ? (
           <>
-            <div className="flex items-center h-[39px] rounded-lg overflow-hidden">
-              <div className="bg-bg-secondary border border-border-input/50 rounded-l-lg px-4 h-full flex items-center">
-                <span className="text-text-primary text-sm font-normal">Credits</span>
-              </div>
-              <div className="bg-accent border border-border-input/50 rounded-r-lg px-3 h-full flex items-center">
-                <span className="text-text-primary text-sm font-semibold">12</span>
-              </div>
-            </div>
-            <Link
+<Link
               href="/account"
               className={`w-[39px] h-[39px] rounded-full flex items-center justify-center ${isProfile ? "bg-accent" : "bg-[#434341]"}`}
             >

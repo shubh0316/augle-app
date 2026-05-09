@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import LoadingScreen from "@/components/LoadingScreen";
 import Lottie from "lottie-react";
 import typingLoader from "@/assets/loader-20.json";
+import loader09Animation from "@/assets/loader09.json";
 
 import cartographerImg from "@/assets/gemini-cartographer.png";
 import methodologistImg from "@/assets/chatgpt-methodologist.png";
@@ -147,16 +148,7 @@ const BOTTOM_CARDS = [
 
 /* ─── Guardian spinner ───────────────────────────────────────── */
 function GuardianSpinner() {
-  return (
-    <div className="relative w-8 h-8 shrink-0">
-      <svg className="guardian-spin" width="32" height="32" viewBox="0 0 32 32" fill="none">
-        <circle cx="16" cy="16" r="13" stroke="#c15f3c" strokeWidth="1.5" strokeDasharray="4 3" strokeLinecap="round"/>
-      </svg>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-4 h-4 rounded-full bg-accent opacity-80" />
-      </div>
-    </div>
-  );
+  return <Lottie animationData={loader09Animation} loop autoplay style={{ width: 32, height: 32 }} />;
 }
 
 /* ─── Agent grid card ────────────────────────────────────────── */
