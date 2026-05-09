@@ -4,9 +4,6 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Augle — Augmented Deliberation",
   description: "AI-powered prediction market research and deliberation platform",
-  icons: {
-    icon: "/fav.png",
-  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
