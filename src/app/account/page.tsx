@@ -48,7 +48,7 @@ export default function AccountPage() {
             <button className="text-accent text-sm font-medium flex items-center gap-1 hover:text-accent-hover transition-colors mb-6">
               Change password <ChevronRight size={16} />
             </button>
-            <button className="bg-accent hover:bg-accent-hover transition-colors text-white font-medium text-base px-8 py-3 rounded-lg">
+            <button className="bg-accent hover:bg-accent-hover transition-colors text-text-primary font-medium text-base px-8 py-3 rounded-lg">
               Save changes
             </button>
           </section>
@@ -84,7 +84,7 @@ export default function AccountPage() {
                   <p className="text-text-secondary text-sm mt-1">credits</p>
                   <p className="text-text-primary text-sm mt-6">{pack.price}</p>
                   <p className="text-text-secondary text-sm">{pack.perCredit}</p>
-                  <button className="w-full bg-accent hover:bg-accent-hover transition-colors text-white font-medium py-3 rounded-lg mt-6">Buy</button>
+                  <button className="w-full bg-accent hover:bg-accent-hover transition-colors text-text-primary font-medium py-3 rounded-lg mt-6">Buy</button>
                 </div>
               ))}
             </div>

@@ -234,7 +234,7 @@ function Sidebar() {
       >
         <button
           type="button"
-          className="w-full h-[52px] rounded-[8px] text-white text-[16px] font-medium transition-colors"
+          className="w-full h-[52px] rounded-[8px] text-text-primary text-[16px] font-medium transition-colors"
           style={{ background: ACCENT }}
           onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "#a8512f"; }}
           onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = ACCENT; }}
@@ -246,7 +246,7 @@ function Sidebar() {
       {/* Active sessions */}
       <div className="px-[22px] pt-5 pb-5">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-[26px] h-[26px] rounded-[5px] flex items-center justify-center text-white text-[14px] font-medium" style={{ background: ACCENT }}>3</div>
+          <div className="w-[26px] h-[26px] rounded-[5px] flex items-center justify-center text-text-primary text-[14px] font-medium" style={{ background: ACCENT }}>3</div>
           <span className="font-serif font-bold text-[16px]" style={{ color: ACCENT }}>Active</span>
         </div>
         <div className="space-y-3">
@@ -267,7 +267,7 @@ function Sidebar() {
         {/* Section header */}
         <div className="flex items-center justify-between mb-4 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-[26px] h-[26px] rounded-[5px] flex items-center justify-center text-white text-[14px] font-medium" style={{ background: ACCENT }}>9</div>
+            <div className="w-[26px] h-[26px] rounded-[5px] flex items-center justify-center text-text-primary text-[14px] font-medium" style={{ background: ACCENT }}>9</div>
             <span className="font-serif font-bold text-[16px]" style={{ color: ACCENT }}>Session history</span>
           </div>
           <button type="button" aria-label="Filter" className="flex items-center justify-center w-[24px] h-[24px]">

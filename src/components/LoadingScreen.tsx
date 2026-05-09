@@ -38,7 +38,7 @@ export default function LoadingScreen() {
                 <text x="2" y="14" fontSize="11" fontWeight="bold" fill="white" fontFamily="serif">Y!</text>
               </svg>
             </div>
-            <span className="text-white text-[12px] font-semibold">Yahoo Finance</span>
+            <span className="text-text-primary text-[12px] font-semibold">Yahoo Finance</span>
           </div>
         </div>
       </div>

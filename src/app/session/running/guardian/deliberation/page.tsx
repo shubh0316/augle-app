@@ -5,6 +5,8 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import { MoreHorizontal, X, ArrowUp } from "lucide-react";
 
+import Lottie from "lottie-react";
+import guardianAnimation from "@/assets/gaurdian.json";
 import cartographerImg from "@/assets/gemini-cartographer.png";
 import methodologistImg from "@/assets/chatgpt-methodologist.png";
 import contrarianImg from "@/assets/claude-contrarian.png";
@@ -27,16 +29,7 @@ function AgentImg({ name, size }: { name: string; size: number }) {
 }
 
 function GuardianSpinner() {
-  return (
-    <div className="relative w-8 h-8 shrink-0">
-      <svg className="guardian-spin" width="32" height="32" viewBox="0 0 32 32" fill="none">
-        <circle cx="16" cy="16" r="13" stroke="#c15f3c" strokeWidth="1.5" strokeDasharray="4 3" strokeLinecap="round"/>
-      </svg>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-4 h-4 rounded-full bg-accent opacity-80" />
-      </div>
-    </div>
-  );
+  return <Lottie animationData={guardianAnimation} loop autoplay style={{ width: 32, height: 32 }} />;
 }
 
 /* ─── Agent pill colors ──────────────────────────────────────── */
@@ -142,9 +135,9 @@ function BackgroundPage({ query }: { query: string }) {
             <div className="px-8 py-7 space-y-7 min-h-[380px]">
               {MSGS.map((m) => (
                 <div key={m.agent} className="flex gap-4">
-                  <AgentImg name={m.agent} size={32} />
+                  <div className="shrink-0"><AgentImg name={m.agent} size={32} /></div>
                   <div className="flex-1 min-w-0">
-                    <h3 className={`font-serif font-bold text-[15px] mb-1.5 agent-name-${m.agent}`}>{m.agent}</h3>
+                    <h3 className="font-serif font-bold text-[15px] mb-1.5 text-accent">{m.agent}</h3>
                     <p className="text-text-primary text-[14px] leading-relaxed line-clamp-3">{m.preview}</p>
                   </div>
                 </div>
@@ -308,9 +301,11 @@ function DeliberationContent() {
   return (
     <div className="relative min-h-screen">
       <Navbar isLoggedIn={true} />
-      <div className="blur-[2px] brightness-50 pointer-events-none">
+      <div className="fixed inset-0 overflow-hidden pointer-events-none select-none">
         <BackgroundPage query={query} />
       </div>
+      {/* dark overlay — no blur/filter, just opacity. Filters on large DOM trees cause GPU jank */}
+      <div className="fixed inset-0 bg-[rgba(23,22,20,0.88)] z-40 pointer-events-none" />
       <DeliberationModal onClose={() => router.back()} />
     </div>
   );

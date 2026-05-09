@@ -10,7 +10,7 @@ export default function PhaseTabs({ activePhase = 0 }: { activePhase?: number })
           key={phase}
           className={`flex-1 h-[40px] flex items-center justify-center text-sm tracking-tight transition-all
             ${i === activePhase
-              ? "bg-accent text-white font-bold"
+              ? "bg-accent text-text-primary font-bold"
               : "bg-bg-secondary border-b border-l border-border-secondary/50 text-text-disabled font-medium"
             }
             ${i === 0 ? "rounded-bl-[10px]" : ""}

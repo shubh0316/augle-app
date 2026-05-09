@@ -11,7 +11,7 @@
   --color-border-input: #524c48;
   --color-border-muted: #333230;
   --color-accent: #c15f3c;
-  --color-accent-hover: #d97858;
+  --color-accent-hover: #c15f3c;
   --color-accent-bg: #33251e;
   --color-text-primary: #f7f6f2;
   --color-text-secondary: #b5ada4;
@@ -25,6 +25,8 @@
   --font-serif: 'Libre Baskerville', serif;
   --font-mono: 'IBM Plex Mono', monospace;
 }
+
+button { cursor: pointer; }
 
 html, body {
   background-color: #171613;
@@ -107,3 +109,6 @@ html, body {
 .animate-slide-up { animation: slideUp 0.5s ease-out forwards; }
 .animate-pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
 .animate-shimmer { background: linear-gradient(90deg, #2e2b28 25%, #3e3a36 50%, #2e2b28 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+
+.bg-ghost-page { contain: strict; }
+.flag-tab { background: rgba(212,152,42,0.42); border: 1.5px solid #d4982a; }

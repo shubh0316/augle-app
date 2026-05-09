@@ -26,7 +26,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       <div className={`fixed top-[69px] right-0 bottom-0 w-[402px] bg-bg-card border-l border-border-primary z-50 transform transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
         <div className="h-full overflow-y-auto p-5">
           {/* New session button */}
-          <button className="w-full bg-accent hover:bg-accent-hover transition-colors text-white font-medium py-3.5 rounded-lg mb-6">
+          <button className="w-full bg-accent hover:bg-accent-hover transition-colors text-text-primary font-medium py-3.5 rounded-lg mb-6">
             New session
           </button>
 

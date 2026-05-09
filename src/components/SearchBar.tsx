@@ -25,7 +25,7 @@ export default function SearchBar({ placeholder = "Find a Polymarket or Kalshi c
         />
       </div>
       <button type="submit" className="w-[53px] h-[53px] bg-accent rounded-r-lg flex items-center justify-center hover:bg-accent-hover transition-colors shrink-0">
-        <ArrowUp size={20} className="text-white" />
+        <ArrowUp size={20} className="text-text-primary" />
       </button>
     </form>
   );

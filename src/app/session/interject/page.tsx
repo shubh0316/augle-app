@@ -193,7 +193,7 @@ export default function InterjectPage() {
             </button>
             <button
               type="button"
-              className="h-[52px] px-10 rounded-[8px] text-white text-[16px] font-medium transition-colors"
+              className="h-[52px] px-10 rounded-[8px] text-text-primary text-[16px] font-medium transition-colors"
               style={{ background: ACCENT }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "#a8512f"; }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = ACCENT; }}

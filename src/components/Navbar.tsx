@@ -1,12 +1,21 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
 import Image from "next/image";
+
+function HamburgerIcon() {
+  return (
+    <div className="flex flex-col gap-[5px] items-start w-[18px]">
+      <span className="block h-[2px] w-[18px] rounded-full bg-[#8B8078]" />
+      <span className="block h-[2px] w-[13px] rounded-full bg-[#8B8078]" />
+      <span className="block h-[2px] w-[9px] rounded-full bg-[#8B8078]" />
+    </div>
+  );
+}
 
 export default function Navbar({ isLoggedIn = false }: { isLoggedIn?: boolean }) {
   const pathname = usePathname();
-  const isHome = pathname === "/";
+  const isProfile = pathname === "/account";
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 h-[69px] bg-[#171614] border-b border-border-muted/50 flex items-center justify-between px-[29px]">
@@ -24,11 +33,14 @@ export default function Navbar({ isLoggedIn = false }: { isLoggedIn?: boolean })
                 <span className="text-text-primary text-sm font-semibold">12</span>
               </div>
             </div>
-            <Link href="/account" className="w-[39px] h-[39px] rounded-full bg-accent flex items-center justify-center">
-              <span className="text-text-primary text-sm font-semibold">C</span>
+            <Link
+              href="/account"
+              className={`w-[39px] h-[39px] rounded-full flex items-center justify-center ${isProfile ? "bg-accent" : "bg-[#434341]"}`}
+            >
+              <span className={`text-sm font-semibold ${isProfile ? "text-text-primary" : "text-[#8B8078]"}`}>C</span>
             </Link>
-            <button type="button" aria-label="Menu" className="w-[39px] h-[39px] rounded-lg bg-bg-secondary border border-border-input/50 flex items-center justify-center">
-              <Menu size={20} className="text-text-primary" />
+            <button type="button" aria-label="Menu" className="w-[39px] h-[39px] rounded-lg bg-[#434341] flex items-center justify-center cursor-pointer">
+              <HamburgerIcon />
             </button>
           </>
         ) : (

@@ -2,15 +2,20 @@
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
+import Lottie from "lottie-react";
 import Navbar from "@/components/Navbar";
 import { MoreHorizontal } from "lucide-react";
-
+import loaderAnimation from "@/assets/loader-20.json";
+import polymarketImg from "@/assets/polymarket.png";
 import cartographerImg from "@/assets/gemini-cartographer.png";
 import methodologistImg from "@/assets/chatgpt-methodologist.png";
 import contrarianImg from "@/assets/claude-contrarian.png";
 import synthesizerImg from "@/assets/synthesizer.png";
 import pragmatistImg from "@/assets/grok-pragmatist.png";
-import ledgerImg from "@/assets/logo.png";
+import augleImg from "@/assets/augle-icon.png";
+import flagImg from "@/assets/flag.png";
+import Lottie from "lottie-react";
+import guardianAnimation from "@/assets/gaurdian.json";
 
 function AgentImg({ name, size }: { name: string; size: number }) {
   const map: Record<string, Parameters<typeof Image>[0]["src"]> = {
@@ -19,7 +24,8 @@ function AgentImg({ name, size }: { name: string; size: number }) {
     Contrarian: contrarianImg,
     Synthesizer: synthesizerImg,
     Pragmatist: pragmatistImg,
-    Ledger: ledgerImg,
+    Ledger: augleImg,
+
   };
   const src = map[name];
   if (!src) return null;
@@ -28,16 +34,7 @@ function AgentImg({ name, size }: { name: string; size: number }) {
 
 /* ─── Guardian spinner ───────────────────────────────────────── */
 function GuardianSpinner() {
-  return (
-    <div className="relative w-8 h-8 shrink-0">
-      <svg className="guardian-spin" width="32" height="32" viewBox="0 0 32 32" fill="none">
-        <circle cx="16" cy="16" r="13" stroke="#c15f3c" strokeWidth="1.5" strokeDasharray="4 3" strokeLinecap="round"/>
-      </svg>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-4 h-4 rounded-full bg-accent opacity-80" />
-      </div>
-    </div>
-  );
+  return <Lottie animationData={guardianAnimation} loop autoplay style={{ width: 32, height: 32 }} />;
 }
 
 /* ─── Bottom processing cards ────────────────────────────────── */
@@ -103,12 +100,9 @@ function GuardianContent() {
           <div className="flex items-start justify-between gap-4 mb-4 pt-4">
             <div className="min-w-0">
               <div className="flex items-center gap-2 mb-1.5">
-                <div className="w-[18px] h-[18px] bg-[#1652f0] rounded-[4px] flex items-center justify-center shrink-0">
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                    <path d="M1 7L3.5 3.5L6 5.5L9 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <span className="text-text-secondary text-sm font-medium">Polymarket</span>
+                
+                <Image src={polymarketImg} alt="Polymarket" width={18} height={18} className="rounded-[4px] shrink-0" />
+                <span className="text-base font-serif" style={{ color: "#F7F6F2" }}>Polymarket</span>
               </div>
               <h1 className="font-serif font-bold text-xl text-text-primary leading-snug">{query}</h1>
             </div>
@@ -121,7 +115,7 @@ function GuardianContent() {
                     type="button"
                     onClick={() => setActiveTab(i)}
                     className={`px-5 py-1.5 rounded-full text-sm font-semibold transition-all ${
-                      activeTab === i ? "bg-accent text-white" : "text-text-muted hover:text-text-primary"
+                      activeTab === i ? "bg-accent text-text-primary" : "text-text-muted hover:text-text-primary"
                     }`}
                   >
                     {tab}
@@ -153,18 +147,19 @@ function GuardianContent() {
               <div className="flex items-center gap-2">
                 <div className="bg-accent-bg border border-accent/50 rounded px-3.5 h-[30px] flex items-center gap-1.5">
                   <span className="text-accent text-sm font-medium">Confidence</span>
-                  <span className="text-accent text-sm tracking-widest">•••</span>
+                  <Lottie animationData={loaderAnimation} loop autoplay style={{ width: 40, height: 20 }} />
                 </div>
-                {/* 1 Flag — orange border when flagged */}
+                {/* 1 Flag */}
                 <div className={`rounded px-3.5 h-[30px] flex items-center border ${
-                  flagged ? "border-accent/70 bg-accent-bg" : "border-border-secondary/50"
+                  flagged ? "border-[#d4982a] bg-[#5c4724]" : "border-border-secondary/50"
                 }`}>
-                  <span className={`text-sm font-medium ${flagged ? "text-accent" : "text-text-disabled"}`}>
+                  <span className={`text-sm font-medium ${flagged ? "text-[#d4982a]" : "text-text-disabled"}`}>
                     {flagged ? "1 Flag" : "0 Flags"}
                   </span>
                 </div>
-                <div className="bg-bg-card border border-border-primary/50 rounded px-3.5 h-[30px] flex items-center">
-                  <span className="text-text-disabled text-sm">Session paused</span>
+                {/* Session paused */}
+                <div className="bg-[#33251e] border border-[#c15f3c] rounded px-3.5 h-[30px] flex items-center">
+                  <span className="text-[#c15f3c] text-sm font-medium">Session paused</span>
                 </div>
               </div>
             </div>
@@ -174,14 +169,14 @@ function GuardianContent() {
 
               {/* Cartographer message — normal */}
               <div className="flex gap-4 animate-fade-in">
-                <div className="shrink-0 mt-0.5">
+                <div className="shrink-0">
                   <AgentImg name="Cartographer" size={32} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-serif font-bold text-[15px] mb-2 agent-name-Cartographer">
+                  <h3 className="font-serif font-bold text-[15px] text-[#C15F3C] mb-2 flex items-center min-h-[32px]">
                     Cartographer
                   </h3>
-                  <div className="text-text-primary text-[14px] leading-relaxed space-y-1">
+                  <div className="text-text-primary text-[16px] leading-relaxed space-y-1">
                     <p>Evidence landscape mapped. Three primary clusters identified:</p>
                     <p>
                       <strong className="font-semibold text-text-primary">Macro indicators</strong>
@@ -199,26 +194,27 @@ function GuardianContent() {
                 </div>
               </div>
 
-              {/* Moderate flag tab */}
+              {/* Moderate flag tab + flagged message */}
               {flagged && (
                 <div className="animate-fade-in">
-                  <div className="inline-flex items-center gap-1.5 border border-accent/50 rounded-t-[6px] px-3 py-1 bg-bg-card -mb-px relative z-10">
-                    <span className="text-accent text-[12px]">🚩</span>
-                    <span className="text-accent text-[12px] font-semibold">Moderate flag</span>
+                  {/* Flag tab label */}
+                  <div className="inline-flex items-center gap-1.5 px-3 h-[29px] rounded-tl-[4px] rounded-tr-[4px] bg-[rgba(212,152,42,0.42)] border-l border-r border-t border-[#d4982a]">
+                    <Image src={flagImg} alt="flag" width={12} height={12} className="shrink-0" />
+                    <span className="text-[#d4982a] text-[12px] font-semibold">Moderate flag</span>
                   </div>
 
                   {/* Flagged Methodologist card */}
-                  <div className="border border-accent/50 rounded-b-[10px] rounded-tr-[10px] overflow-hidden bg-bg-card">
+                  <div className="rounded-bl-[5px] rounded-br-[5px] rounded-tr-[5px] overflow-hidden bg-[#262321] border-[0.5px] border-[#d4982a]">
                     <div className="px-6 py-5">
                       <div className="flex gap-4">
-                        <div className="shrink-0 mt-0.5">
+                        <div className="shrink-0">
                           <AgentImg name="Methodologist" size={32} />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-serif font-bold text-[15px] mb-2 agent-name-Methodologist">
+                          <h3 className="font-serif font-bold text-[15px] mb-2 text-[#C15F3C] flex items-center min-h-[32px]">
                             Methodologist
                           </h3>
-                          <p className="text-text-primary text-[14px] leading-relaxed">
+                          <p className="text-text-primary text-[16px] leading-relaxed">
                             Research question confirmed. Depth: Standard, 3 phases. Evidence threshold: Moderate. Recession operationalized as two consecutive quarters of negative real GDP growth. Time horizon locked to Q4 2026. No ambiguity flags on intake.
                           </p>
                         </div>
@@ -230,14 +226,14 @@ function GuardianContent() {
                       <button
                         type="button"
                         onClick={() => setFlagged(false)}
-                        className="px-5 py-2 rounded-lg bg-bg-secondary border border-border-primary text-text-primary text-[13px] font-semibold hover:bg-bg-input transition-colors"
+                        className="w-[140px] h-[36px] rounded-lg text-[13px] font-semibold transition-colors bg-[#1E1C1A]"
                       >
                         Interject
                       </button>
                       <button
                         type="button"
                         onClick={() => setFlagged(false)}
-                        className="px-5 py-2 rounded-lg bg-bg-secondary border border-border-primary text-text-primary text-[13px] font-semibold hover:bg-bg-input transition-colors"
+                        className="w-[140px] h-[36px] rounded-lg text-[13px] font-semibold transition-colors bg-[#1E1C1A]"
                       >
                         Ignore
                       </button>
@@ -255,7 +251,7 @@ function GuardianContent() {
                 key={phase}
                 className={`flex-1 h-[42px] flex items-center justify-center text-sm font-semibold tracking-tight transition-all ${
                   i === 0
-                    ? "bg-accent text-white"
+                    ? "bg-accent text-text-primary"
                     : "bg-bg-secondary text-text-disabled border-l border-border-primary/50"
                 }`}
               >

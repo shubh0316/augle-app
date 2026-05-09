@@ -155,7 +155,7 @@ function SessionSetupContent() {
               >
                 {t.popular && (
                   <div className="absolute -top-px left-1/2 -translate-x-1/2 bg-accent rounded-b-[6px] px-4 py-[3px] whitespace-nowrap">
-                    <span className="text-white text-[10px] font-bold tracking-widest uppercase">
+                    <span className="text-text-primary text-[10px] font-bold tracking-widest uppercase">
                       Most Popular
                     </span>
                   </div>
@@ -163,7 +163,7 @@ function SessionSetupContent() {
 
                 {active && (
                   <div className="absolute top-4 right-4 w-[26px] h-[26px] rounded-full bg-accent flex items-center justify-center">
-                    <Check size={13} className="text-white" strokeWidth={3} />
+                    <Check size={13} className="text-text-primary" strokeWidth={3} />
                   </div>
                 )}
 
@@ -220,7 +220,7 @@ function SessionSetupContent() {
           <button
             type="button"
             onClick={() => router.push(`/session/running?q=${encodeURIComponent(query)}&tier=${selectedTier}`)}
-            className="bg-accent hover:bg-accent-hover transition-colors text-white font-semibold text-base px-10 py-3.5 rounded-xl whitespace-nowrap shrink-0"
+            className="bg-accent hover:bg-accent-hover transition-colors text-text-primary font-semibold text-base px-10 py-3.5 rounded-xl whitespace-nowrap shrink-0"
           >
             Start session
           </button>
@@ -254,7 +254,7 @@ function SessionSetupContent() {
             >
               {pack.bestValue && (
                 <div className="absolute -top-px left-1/2 -translate-x-1/2 bg-accent rounded-b-[6px] px-4 py-[3px] whitespace-nowrap">
-                  <span className="text-white text-[10px] font-bold tracking-widest uppercase">
+                  <span className="text-text-primary text-[10px] font-bold tracking-widest uppercase">
                     Best Value
                   </span>
                 </div>
@@ -272,7 +272,7 @@ function SessionSetupContent() {
 
               <button
                 type="button"
-                className="w-full bg-accent hover:bg-accent-hover transition-colors text-white font-semibold text-base py-3 rounded-xl"
+                className="w-full bg-accent hover:bg-accent-hover transition-colors text-text-primary font-semibold text-base py-3 rounded-xl"
               >
                 Buy
               </button>

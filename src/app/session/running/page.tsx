@@ -6,13 +6,16 @@ import Navbar from "@/components/Navbar";
 import { MoreHorizontal } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import LoadingScreen from "@/components/LoadingScreen";
+import Lottie from "lottie-react";
+import typingLoader from "@/assets/loader-20.json";
 
 import cartographerImg from "@/assets/gemini-cartographer.png";
 import methodologistImg from "@/assets/chatgpt-methodologist.png";
 import contrarianImg from "@/assets/claude-contrarian.png";
 import synthesizerImg from "@/assets/synthesizer.png";
 import pragmatistImg from "@/assets/grok-pragmatist.png";
-import ledgerImg from "@/assets/logo.png";
+import ledgerImg from "@/assets/augle-icon.png";
+import polymarketImg from "@/assets/polymarket.png";
 
 /* ─── Agent icon maps ────────────────────────────────────────── */
 const AGENT_IMGS: Record<string, { src: Parameters<typeof Image>[0]["src"]; alt: string }> = {
@@ -96,39 +99,39 @@ const AGENT_GRID = [
 const EVIDENCE_NODES = [
   {
     badge: "Established",
-    badgeColor: "#58A74A",
     title: "NBER Lag 6-8 months",
     sub: "Documented",
-    subColor: "#58A74A",
-    border: "#58A74A",
-    bg: "rgba(88,167,74,0.07)",
+    cardCls: "border-[#58A74A] bg-[rgba(88,167,74,0.07)]",
+    badgeCls: "text-[#58A74A] bg-[rgba(88,167,74,0.34)]",
+    dotCls: "bg-[#58A74A]",
+    subCls: "text-[#58A74A]",
   },
   {
     badge: "Probable",
-    badgeColor: "#4392F1",
     title: "GDP below trend",
     sub: "Not yet contracted",
-    subColor: "#4392F1",
-    border: "#4392F1",
-    bg: "rgba(67,146,241,0.07)",
+    cardCls: "border-[#4392F1] bg-[rgba(67,146,241,0.07)]",
+    badgeCls: "text-[#4392F1] bg-[rgba(67,146,241,0.14)]",
+    dotCls: "bg-[#4392F1]",
+    subCls: "text-[#4392F1]",
   },
   {
     badge: "Contested",
-    badgeColor: "#D4982A",
     title: "Claims increased",
     sub: "Pending",
-    subColor: "#D4982A",
-    border: "#D4982A",
-    bg: "rgba(212,152,42,0.07)",
+    cardCls: "border-[#D4982A] bg-[rgba(212,152,42,0.07)]",
+    badgeCls: "text-[#D4982A] bg-[rgba(212,152,42,0.34)]",
+    dotCls: "bg-[#D4982A]",
+    subCls: "text-[#D4982A]",
   },
   {
     badge: "Gap",
-    badgeColor: "#D97858",
     title: "Q1 2026 GDP",
     sub: "Release April 30",
-    subColor: "#D97858",
-    border: "#D97858",
-    bg: "rgba(217,120,88,0.07)",
+    cardCls: "border-[#D97858] bg-[rgba(217,120,88,0.07)]",
+    badgeCls: "text-[#f68864] bg-[rgba(217,120,88,0.34)]",
+    dotCls: "bg-[#D97858]",
+    subCls: "text-[#D97858]",
   },
 ];
 
@@ -161,62 +164,60 @@ function AgentGridCard(card: typeof AGENT_GRID[0]) {
   const { name, task, model, status, active, assessing, bullets } = card;
   return (
     <div
-      className={`rounded-xl border flex flex-col overflow-hidden transition-all ${
+      className={`rounded-[6px] border flex flex-col overflow-hidden transition-all ${
         active
           ? "border-border-primary bg-bg-card"
-          : "border-border-primary/40 bg-bg-secondary/60"
+          : "border-border-primary/40 bg-bg-secondary"
       }`}
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-border-primary/30">
+      <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-2 min-w-0">
-          <AgentImg name={name} size={22} />
+          <AgentImg name={name} size={32} />
           <div className="min-w-0">
-            <p className={`text-[13px] font-semibold truncate ${active ? "text-text-primary" : "text-text-disabled"}`}>{name}</p>
+            <p className={`font-serif text-[14px] font-normal truncate ${active ? "text-text-primary" : "text-text-disabled"}`}>{name}</p>
             <p className={`text-[11px] truncate ${active ? "text-text-secondary" : "text-text-disabled/60"}`}>{task}</p>
           </div>
         </div>
-        <div className="flex items-center gap-1.5 shrink-0">
-          <div className={`w-1.5 h-1.5 rounded-full ${active ? "bg-accent animate-pulse" : "bg-text-disabled/40"}`} />
-          <span className={`text-[11px] font-medium ${active ? "text-accent" : "text-text-disabled"}`}>{status}</span>
+        <div className="flex flex-col items-end gap-0.5 shrink-0">
+          <div className="flex items-center gap-1.5">
+            <div className={`w-1.5 h-1.5 rounded-full ${active ? "bg-accent animate-pulse" : "bg-text-disabled/40"}`} />
+            <span className={`text-[11px] font-medium ${active ? "text-accent" : "text-text-disabled/60"}`}>{status}</span>
+          </div>
           <span className={`text-[11px] ${active ? "text-text-secondary" : "text-text-disabled/50"}`}>{model}</span>
         </div>
       </div>
 
+      {/* Divider */}
+      <div className="border-t border-border-primary/30 mx-0" />
+
       {/* Body */}
       <div className="flex-1 px-4 py-4">
+        <p className={`text-[11px] font-semibold tracking-widest uppercase mb-3 ${active ? "text-text-secondary" : "text-text-disabled/40"}`}>{task}</p>
         {active && bullets ? (
-          <>
-            <p className="text-[11px] font-bold tracking-wider text-text-secondary uppercase mb-3">{task}</p>
-            <ul className="space-y-1.5">
-              {bullets.map((b) => (
-                <li key={b} className="flex items-start gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-accent mt-1.5 shrink-0" />
-                  <span className="text-text-primary text-[12px] leading-snug">{b}</span>
-                </li>
-              ))}
-            </ul>
-          </>
+          <ul className="space-y-2">
+            {bullets.map((b) => (
+              <li key={b} className="flex items-start gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-accent mt-[5px] shrink-0" />
+                <span className="text-text-primary text-[13px] leading-snug">{b}</span>
+              </li>
+            ))}
+          </ul>
         ) : (
-          <>
-            <p className="text-[11px] font-bold tracking-wider text-text-disabled/50 uppercase mb-3">{task}</p>
-            <div className="space-y-2">
-              <Skeleton className="h-2.5 w-full" />
-              <Skeleton className="h-2.5 w-4/5" />
-              <Skeleton className="h-2.5 w-full" />
-              <Skeleton className="h-2.5 w-3/4 mt-4" />
-              <Skeleton className="h-2.5 w-full" />
-              <Skeleton className="h-2.5 w-2/3" />
-            </div>
-          </>
+          <div className="space-y-2">
+            <Skeleton className="h-[18px] w-[187px] rounded-[3px]" />
+            <Skeleton className="h-[18px] w-[210px] rounded-[3px]" />
+            <Skeleton className="h-[18px] w-[210px] rounded-[3px]" />
+          </div>
         )}
       </div>
 
-      {/* Footer */}
-      <div className="px-4 py-2.5 border-t border-border-primary/20 flex items-center justify-between">
-        <span className={`text-[11px] ${active ? "text-text-secondary" : "text-text-disabled/50"}`}>{model}</span>
+      {/* Bottom divider + footer */}
+      <div className="border-t border-border-primary/30" />
+      <div className="px-4 py-2.5 flex items-center justify-between">
+        <span className={`text-[13px] ${active ? "text-text-secondary" : "text-text-disabled/40"}`}>{model}</span>
         {active && assessing && (
-          <span className="text-[11px] text-accent font-medium">{assessing}</span>
+          <span className="text-[13px] text-accent font-medium">{assessing}</span>
         )}
       </div>
     </div>
@@ -259,7 +260,6 @@ function BottomProcessingCard({ name, task, model, status }: typeof BOTTOM_CARDS
           : "text-text-disabled"
         }`}>{status}</span>
       </div>
-      {/* Logo bottom-right */}
       <div className="absolute bottom-2 right-2">
         <AgentImg name={name} size={22} />
       </div>
@@ -308,12 +308,8 @@ function SessionRunningContent() {
           <div className="flex items-start justify-between gap-4 mb-4 pt-4">
             <div className="min-w-0">
               <div className="flex items-center gap-2 mb-1.5">
-                <div className="w-[18px] h-[18px] bg-[#1652f0] rounded-[4px] flex items-center justify-center shrink-0">
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                    <path d="M1 7L3.5 3.5L6 5.5L9 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <span className="text-text-secondary text-sm font-medium">Polymarket</span>
+                <Image src={polymarketImg} alt="Polymarket" width={18} height={18} className="rounded-[4px] shrink-0" />
+                <span className="text-base font-serif" style={{ color: "#F7F6F2" }}>Polymarket</span>
               </div>
               <h1 className="font-serif font-bold text-xl text-text-primary leading-snug">{query}</h1>
             </div>
@@ -326,7 +322,7 @@ function SessionRunningContent() {
                     type="button"
                     onClick={() => setActiveTab(i)}
                     className={`px-5 py-1.5 rounded-full text-sm font-semibold transition-all ${
-                      activeTab === i ? "bg-accent text-white" : "text-text-muted hover:text-text-primary"
+                      activeTab === i ? "bg-accent text-text-primary" : "text-text-muted hover:text-text-primary"
                     }`}
                   >
                     {tab}
@@ -344,7 +340,7 @@ function SessionRunningContent() {
           </div>
 
           {/* ── Guardian bar (always visible) ── */}
-          <div className="bg-bg-card border border-border-primary rounded-t-[12px] overflow-hidden">
+          <div className="bg-bg-card border border-border-primary rounded-[12px] overflow-hidden">
             <div className="bg-bg-secondary border-b border-border-primary px-6 py-3 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <GuardianSpinner />
@@ -356,7 +352,7 @@ function SessionRunningContent() {
               <div className="flex items-center gap-2">
                 <div className="bg-accent-bg border border-accent/50 rounded px-3.5 h-[30px] flex items-center gap-1.5">
                   <span className="text-accent text-sm font-medium">Confidence</span>
-                  <span className="text-accent text-sm tracking-widest">•••</span>
+                  <Lottie animationData={typingLoader} loop autoplay style={{ width: 40, height: 20 }} />
                 </div>
                 <div className="border border-border-secondary/50 rounded px-3.5 h-[30px] flex items-center">
                   <span className="text-text-disabled text-sm">0 Flags</span>
@@ -367,35 +363,37 @@ function SessionRunningContent() {
               </div>
             </div>
 
-            {/* ── Phase tabs ── */}
-            <div className="flex w-full border-b border-border-primary">
-              {PHASES.map((phase, i) => (
-                <div
-                  key={phase}
-                  className={`flex-1 h-[42px] flex items-center justify-center text-sm font-semibold tracking-tight transition-all ${
-                    i === 0
-                      ? "bg-accent text-white"
-                      : "bg-bg-secondary text-text-disabled border-l border-border-primary/50"
-                  }`}
-                >
-                  {phase}
-                </div>
-              ))}
-            </div>
+            {/* ── Phase tabs (Signals) — inside Guardian bg ── */}
+            {activeTab === 1 && (
+              <div className="bg-bg-secondary border-b border-border-primary flex w-full p-4">
+                {PHASES.map((phase, i) => (
+                  <div
+                    key={phase}
+                    className={`flex-1 h-[40px] flex items-center justify-center text-sm tracking-tight transition-all ${
+                      i === 0
+                        ? "bg-accent-bg border border-accent font-semibold text-accent"
+                        : "border-t border-r border-b border-border-secondary font-normal text-[#524c48]"
+                    }`}
+                  >
+                    {phase}
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* ── TAB: Conversation ── */}
             {activeTab === 0 && (
               <div className="px-8 py-7 space-y-8 min-h-[420px]">
                 {MESSAGES.slice(0, visibleCount).map((msg) => (
                   <div key={msg.agent} className="animate-fade-in flex gap-4">
-                    <div className="shrink-0 mt-0.5">
+                    <div className="shrink-0 flex flex-col items-center">
                       <AgentImg name={msg.agent} size={32} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className={`font-serif font-bold text-[15px] mb-2 agent-name-${msg.agent}`}>
+                      <h3 className="font-serif font-bold text-[15px] mb-2 text-accent flex items-center min-h-[32px]">
                         {msg.agent}
                       </h3>
-                      <div className="text-text-primary text-[14px] leading-relaxed space-y-1">
+                      <div className="text-text-primary text-[16px] leading-relaxed space-y-1">
                         {msg.parts.map((part, j) =>
                           typeof part === "string" ? (
                             <p key={j}>{part}</p>
@@ -412,14 +410,11 @@ function SessionRunningContent() {
                 ))}
 
                 {visibleCount < MESSAGES.length && (
-                  <div className="flex gap-4">
-                    <div className="w-8 h-8 rounded-full bg-bg-input flex items-center justify-center shrink-0">
-                      <div className="flex gap-1">
-                        {[0, 1, 2].map((d) => (
-                          <div key={d} className={`w-1 h-1 rounded-full bg-text-muted animate-pulse-dot stream-dot-${d + 1}`} />
-                        ))}
-                      </div>
+                  <div className="flex gap-4 items-center">
+                    <div className="w-8 h-8 rounded-full bg-bg-input flex items-center justify-center shrink-0 overflow-hidden">
+                      <AgentImg name={MESSAGES[visibleCount]?.agent ?? ""} size={32} />
                     </div>
+                    <Lottie animationData={typingLoader} loop autoplay style={{ width: 32, height: 32 }} />
                   </div>
                 )}
               </div>
@@ -427,64 +422,82 @@ function SessionRunningContent() {
 
             {/* ── TAB: Signals ── */}
             {activeTab === 1 && (
-              <div className="p-5 space-y-5">
-                {/* Agent 3×2 grid */}
+              <div className="p-5">
                 <div className="grid grid-cols-3 gap-4">
                   {AGENT_GRID.map((card) => (
                     <AgentGridCard key={card.name} {...card} />
                   ))}
                 </div>
+              </div>
+            )}
 
-                {/* Evidence nodes */}
-                <div>
-                  <p className="text-text-secondary text-[12px] font-medium mb-3">Evidence nodes – Exploration phase</p>
-                  <div className="bg-bg-card border border-border-primary rounded-xl p-4">
-                    <div className="grid grid-cols-4 gap-3">
-                      {EVIDENCE_NODES.map((node) => (
-                        <div
-                          key={node.badge}
-                          className="rounded-xl p-3 border flex flex-col gap-2"
-                          style={{ borderColor: node.border, background: node.bg }}
-                        >
-                          <span
-                            className="text-[11px] font-bold px-2 py-0.5 rounded-full self-start"
-                            style={{ color: node.badgeColor, background: `${node.badgeColor}22` }}
-                          >
-                            {node.badge}
-                          </span>
-                          <p className="text-text-primary text-[13px] font-semibold leading-snug">{node.title}</p>
-                          <div className="flex items-center gap-1.5 mt-auto">
-                            <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: node.subColor }} />
-                            <span className="text-[11px]" style={{ color: node.subColor }}>{node.sub}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+            {/* ── Phase tabs — bottom of chat card ── */}
+            {activeTab === 0 && (
+              <div className="flex w-full border-t border-border-primary">
+                {PHASES.map((phase, i) => (
+                  <div
+                    key={phase}
+                    className={`flex-1 h-[42px] flex items-center justify-center text-sm font-semibold tracking-tight transition-all ${
+                      i === 0
+                        ? "bg-accent text-text-primary rounded-bl-[12px]"
+                        : "bg-bg-secondary text-text-disabled border-l border-border-primary/50"
+                    }`}
+                  >
+                    {phase}
                   </div>
-                </div>
-
-                {/* Agent processing strip */}
-                <div>
-                  <p className="text-text-secondary text-[12px] font-medium mb-3">Agent processing</p>
-                  <div className="bg-bg-card border border-border-primary rounded-xl p-4">
-                    <div className="grid grid-cols-6 gap-3">
-                      {BOTTOM_CARDS.map((card) => (
-                        <BottomProcessingCard key={card.name} {...card} />
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             )}
           </div>
 
-          {/* ── Conversation tab bottom strip ── */}
+          {/* ── Agent processing strip — separate card ── */}
           {activeTab === 0 && (
-            <div className="bg-bg-card border border-border-primary rounded-b-[12px] border-t-0 p-4 mt-0">
+            <div className="bg-bg-card border border-border-primary rounded-[12px] p-4 mt-3">
               <div className="grid grid-cols-6 gap-3">
                 {BOTTOM_CARDS.map((card) => (
                   <BottomProcessingCard key={card.name} {...card} />
                 ))}
+              </div>
+            </div>
+          )}
+
+          {/* ── Signals tab: evidence nodes + agent processing ── */}
+          {activeTab === 1 && (
+            <div className="space-y-3 mt-3">
+              {/* Evidence nodes */}
+              <div>
+                <p className="text-[#6a645e] text-[14px] font-medium mb-2">Evidence nodes - Exploration phase</p>
+                <div className="bg-bg-card border border-border-primary rounded-[11px] p-4">
+                  <div className="flex gap-12 justify-center">
+                    {EVIDENCE_NODES.map((node) => (
+                      <div
+                        key={node.badge}
+                        className={`rounded-[8px] p-4 border flex flex-col gap-2 w-[229px] min-h-[96px] ${node.cardCls}`}
+                      >
+                        <span className={`text-[11px] font-semibold px-4 py-1 rounded-[8px] self-start ${node.badgeCls}`}>
+                          {node.badge}
+                        </span>
+                        <p className="text-text-primary text-[11px] font-medium leading-snug mt-auto">{node.title}</p>
+                        <div className="flex items-center gap-1.5">
+                          <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${node.dotCls}`} />
+                          <span className={`text-[11px] ${node.subCls}`}>{node.sub}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Agent processing */}
+              <div>
+                <p className="text-[#6a645e] text-[14px] font-medium mb-2">Agent processing</p>
+                <div className="bg-bg-card border border-border-primary rounded-[11px] p-4">
+                  <div className="grid grid-cols-6 gap-3">
+                    {BOTTOM_CARDS.map((card) => (
+                      <BottomProcessingCard key={card.name} {...card} />
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           )}

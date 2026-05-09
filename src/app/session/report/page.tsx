@@ -94,7 +94,7 @@ function ClaimsSection({
         style={{ background: "#1e1c1a", border: "0.5px solid #333230" }}
       >
         <div className="flex items-center gap-2">
-          <span className="font-mono text-[14px] text-white">{number}</span>
+          <span className="font-mono text-[14px] text-text-primary">{number}</span>
           <h2 className="font-serif font-bold text-[20px] text-text-primary">{title}</h2>
         </div>
         <div
@@ -121,7 +121,7 @@ function ClaimsSection({
             }}
           >
             <Badge type={c.badge} />
-            <p className="text-white text-[16px] leading-[27px]">{c.text}</p>
+            <p className="text-text-primary text-[16px] leading-[27px]">{c.text}</p>
             <p className="text-[16px] text-text-secondary">
               <span className="font-semibold">Source: </span>
               <span className="italic">{c.source}</span>
@@ -169,7 +169,7 @@ function ReportContent() {
         <div className="flex items-center gap-2">
           <button
             type="button"
-            className="flex items-center gap-2 h-[35px] px-4 rounded-[8px] text-white text-[14px] font-semibold tracking-[-0.14px]"
+            className="flex items-center gap-2 h-[35px] px-4 rounded-[8px] text-text-primary text-[14px] font-semibold tracking-[-0.14px]"
             style={{ background: ACCENT }}
           >
             <RefreshCw size={14} />
@@ -177,14 +177,14 @@ function ReportContent() {
           </button>
           <button
             type="button"
-            className="flex items-center h-[35px] px-4 rounded-[8px] text-white text-[14px] font-semibold tracking-[-0.14px]"
+            className="flex items-center h-[35px] px-4 rounded-[8px] text-text-primary text-[14px] font-semibold tracking-[-0.14px]"
             style={{ background: ACCENT }}
           >
             Export PDF
           </button>
           <button
             type="button"
-            className="flex items-center h-[35px] px-4 rounded-[8px] text-white text-[14px] font-semibold tracking-[-0.14px]"
+            className="flex items-center h-[35px] px-4 rounded-[8px] text-text-primary text-[14px] font-semibold tracking-[-0.14px]"
             style={{ background: ACCENT }}
           >
             New session

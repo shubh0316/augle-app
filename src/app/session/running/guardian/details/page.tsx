@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, Suspense } from "react";
+import { useState, useRef, Suspense, memo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
@@ -11,6 +11,9 @@ import contrarianImg from "@/assets/claude-contrarian.png";
 import synthesizerImg from "@/assets/synthesizer.png";
 import pragmatistImg from "@/assets/grok-pragmatist.png";
 import ledgerImg from "@/assets/logo.png";
+import flagImg from "@/assets/flag.png";
+import Lottie from "lottie-react";
+import guardianAnimation from "@/assets/gaurdian.json";
 
 function AgentImg({ name, size }: { name: string; size: number }) {
   const map: Record<string, Parameters<typeof Image>[0]["src"]> = {
@@ -27,16 +30,7 @@ function AgentImg({ name, size }: { name: string; size: number }) {
 }
 
 function GuardianSpinner() {
-  return (
-    <div className="relative w-8 h-8 shrink-0">
-      <svg className="guardian-spin" width="32" height="32" viewBox="0 0 32 32" fill="none">
-        <circle cx="16" cy="16" r="13" stroke="#c15f3c" strokeWidth="1.5" strokeDasharray="4 3" strokeLinecap="round"/>
-      </svg>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-4 h-4 rounded-full bg-accent opacity-80" />
-      </div>
-    </div>
-  );
+  return <Lottie animationData={guardianAnimation} loop autoplay style={{ width: 32, height: 32 }} />;
 }
 
 const BOTTOM_CARDS = [
@@ -77,9 +71,9 @@ function BottomProcessingCard({ name, task, model, status }: typeof BOTTOM_CARDS
 const PHASES = ["Exploration", "Deliberation", "Synthesis", "Conclusion"];
 
 /* ─── Background ghost page ──────────────────────────────────── */
-function BackgroundPage({ query }: { query: string }) {
+const BackgroundPage = memo(function BackgroundPage({ query }: { query: string }) {
   return (
-    <div className="pointer-events-none select-none">
+    <div className="pointer-events-none select-none bg-ghost-page">
       <main className="min-h-screen pt-[76px] pb-8 px-4 flex flex-col items-center">
         <div className="w-full max-w-[860px]">
           <div className="flex items-start justify-between gap-4 mb-4 pt-4">
@@ -97,7 +91,7 @@ function BackgroundPage({ query }: { query: string }) {
             <div className="flex items-center gap-2 shrink-0 mt-1">
               <div className="flex items-center bg-bg-card border border-border-primary rounded-full p-1 gap-0.5">
                 {["Conversation", "Signals"].map((tab) => (
-                  <div key={tab} className={`px-5 py-1.5 rounded-full text-sm font-semibold ${tab === "Conversation" ? "bg-accent text-white" : "text-text-muted"}`}>{tab}</div>
+                  <div key={tab} className={`px-5 py-1.5 rounded-full text-sm font-semibold ${tab === "Conversation" ? "bg-accent text-text-primary" : "text-text-muted"}`}>{tab}</div>
                 ))}
               </div>
               <div className="w-9 h-9 rounded-full bg-bg-card border border-border-primary flex items-center justify-center">
@@ -131,9 +125,9 @@ function BackgroundPage({ query }: { query: string }) {
 
             <div className="px-8 py-7 space-y-6 min-h-[380px]">
               <div className="flex gap-4">
-                <AgentImg name="Cartographer" size={32} />
+                <div className="shrink-0"><AgentImg name="Cartographer" size={32} /></div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-serif font-bold text-[15px] mb-2 agent-name-Cartographer">Cartographer</h3>
+                  <h3 className="font-serif font-bold text-[15px] mb-2 text-accent">Cartographer</h3>
                   <div className="text-text-primary text-[14px] leading-relaxed space-y-1">
                     <p>Evidence landscape mapped. Three primary clusters identified:</p>
                     <p><strong>Macro indicators</strong> — GDP growth rate (Q1 2026: +0.4% annualized), yield curve inversion history, manufacturing PMI in contraction for 5 consecutive months, consumer confidence index at 18-month low.</p>
@@ -169,7 +163,7 @@ function BackgroundPage({ query }: { query: string }) {
 
           <div className="flex w-full overflow-hidden border-x border-b border-border-primary rounded-b-[12px]">
             {PHASES.map((phase, i) => (
-              <div key={phase} className={`flex-1 h-[42px] flex items-center justify-center text-sm font-semibold ${i === 0 ? "bg-accent text-white" : "bg-bg-secondary text-text-disabled border-l border-border-primary/50"}`}>{phase}</div>
+              <div key={phase} className={`flex-1 h-[42px] flex items-center justify-center text-sm font-semibold ${i === 0 ? "bg-accent text-text-primary" : "bg-bg-secondary text-text-disabled border-l border-border-primary/50"}`}>{phase}</div>
             ))}
           </div>
 
@@ -184,7 +178,7 @@ function BackgroundPage({ query }: { query: string }) {
       </main>
     </div>
   );
-}
+});
 
 /* ─── Modal ──────────────────────────────────────────────────── */
 function DetailsModal({ onClose }: { onClose: () => void }) {
@@ -194,57 +188,50 @@ function DetailsModal({ onClose }: { onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4" onClick={onClose}>
       <div
-        className="relative w-full max-w-[540px] bg-bg-card border border-border-primary rounded-2xl overflow-hidden shadow-2xl"
+        className="relative w-full max-w-[540px] bg-[#2e2b28] border border-[#524c48] rounded-2xl overflow-hidden shadow-[0px_44px_48px_-12px_rgba(0,0,0,0.26),0px_0px_24px_4px_rgba(0,0,0,0.05)]"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header row */}
+        {/* Flag tab + close */}
         <div className="flex items-center justify-between px-5 pt-5 pb-4">
-          <div className="inline-flex items-center gap-1.5 border border-accent/60 bg-accent-bg rounded-full px-3 py-1">
-            <span className="text-[13px]">🚩</span>
-            <span className="text-accent text-[13px] font-semibold">Moderate flag</span>
+          <div className="inline-flex items-center gap-2 px-3 h-[30px] rounded flag-tab">
+            <Image src={flagImg} alt="flag" width={13} height={13} className="shrink-0" />
+            <span className="text-[#d4982a] text-[13px] font-semibold">Moderate flag</span>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="w-8 h-8 rounded-full border border-border-primary bg-bg-secondary flex items-center justify-center hover:bg-bg-input transition-colors"
+            className="w-[34px] h-[34px] rounded-full border border-[#8b8078] flex items-center justify-center hover:bg-[#3a3733] transition-colors"
             aria-label="Close"
           >
-            <X size={15} className="text-text-primary" />
+            <X size={14} className="text-[#f7f6f2]" />
           </button>
         </div>
 
         {/* Guardian block */}
         <div className="px-5 pb-4">
           <div className="flex items-start gap-3 mb-3">
-            {/* Guardian dot icon */}
-            <div className="relative w-8 h-8 shrink-0 mt-0.5">
-              <svg className="guardian-spin" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <circle cx="16" cy="16" r="13" stroke="#c15f3c" strokeWidth="1.5" strokeDasharray="4 3" strokeLinecap="round"/>
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-4 h-4 rounded-full bg-accent opacity-80" />
-              </div>
-            </div>
+            <Lottie animationData={guardianAnimation} loop autoplay style={{ width: 32, height: 32, flexShrink: 0 }} />
             <div>
-              <p className="font-serif font-bold text-[16px] text-text-primary leading-none mb-1">Guardian</p>
-              <p className="text-accent text-[13px] italic leading-snug">
+              <p className="font-serif font-bold text-[16px] text-[#f7f6f2] leading-none mb-1.5">Guardian</p>
+              <p className="text-[#c15f3c] text-[13px] italic leading-snug">
                 The guardian is responsible for ensuring the deliberation doesn&apos;t derail and raises flags when bias, unverified sources, or other compromises are detected.
               </p>
             </div>
           </div>
-
-          <p className="text-text-primary text-[14px] leading-relaxed pl-11">
+          <p className="text-[#f7f6f2] text-[14px] leading-relaxed pl-11">
             The following was flagged due to a bias conflict between the Methodologist and the Cartographer. You may interject during this pause.
           </p>
         </div>
 
-        {/* Methodologist card */}
+        {/* Methodologist flagged card */}
         <div className="px-5 pb-5">
-          <div className="border border-accent/50 rounded-xl p-4 bg-bg-secondary/60 flex gap-3">
-            <AgentImg name="Methodologist" size={32} />
+          <div className="rounded-[8px] p-4 flex gap-3 border-[0.5px] border-[#d4982a] bg-[#262321]">
+            <div className="shrink-0">
+              <AgentImg name="Methodologist" size={32} />
+            </div>
             <div className="flex-1 min-w-0">
-              <h3 className="font-serif font-bold text-[14px] mb-1.5 agent-name-Methodologist">Methodologist</h3>
-              <p className="text-text-primary text-[13px] leading-relaxed">
+              <h3 className="font-serif font-bold text-[14px] mb-1.5 text-[#d4982a]">Methodologist</h3>
+              <p className="text-[#f7f6f2] text-[14px] leading-relaxed">
                 Research question confirmed. Depth: Standard, 3 phases. Evidence threshold: Moderate. Recession operationalized as two consecutive quarters of negative real GDP growth. Time horizon locked to Q4 2026. No ambiguity flags on intake.
               </p>
             </div>
@@ -252,31 +239,30 @@ function DetailsModal({ onClose }: { onClose: () => void }) {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-border-primary/40 mx-5" />
+        <div className="border-t border-[#524c48]/60 mx-5" />
 
         {/* Text input */}
         <div className="px-5 py-4">
-          <div className="bg-bg-secondary border border-border-primary rounded-xl px-4 pt-3 pb-3 flex flex-col gap-3">
+          <div className="bg-[#262321] border border-[#50504c] rounded-[17px] px-4 pt-4 pb-3 flex flex-col gap-3">
             <textarea
               ref={textareaRef}
               value={text}
               onChange={(e) => setText(e.target.value)}
               rows={2}
               placeholder="Start typing"
-              className="w-full bg-transparent text-text-primary text-[14px] placeholder:text-text-disabled resize-none outline-none leading-relaxed"
+              className="w-full bg-transparent text-[#f7f6f2] text-[15px] placeholder:text-[#b5ada4] resize-none outline-none leading-relaxed"
             />
             <div className="flex justify-end">
               <button
                 type="button"
-                className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
-                  text.trim() ? "bg-accent hover:bg-accent-hover" : "bg-bg-input border border-border-primary"
-                }`}
+                aria-label="Send"
+                className="w-[31px] h-[31px] rounded-[5px] flex items-center justify-center transition-colors bg-accent hover:bg-accent-hover"
               >
-                <ArrowUp size={15} className={text.trim() ? "text-white" : "text-text-disabled"} />
+                <ArrowUp size={15} className="text-white" />
               </button>
             </div>
           </div>
-          <p className="text-text-disabled text-[12px] mt-2.5 text-center">
+          <p className="text-[#b5ada4] text-[13px] mt-3 text-center">
             Providing a source strengthens approval with the Guardian.
           </p>
         </div>
@@ -298,11 +284,10 @@ function GuardianDetailsContent() {
   return (
     <div className="relative min-h-screen">
       <Navbar isLoggedIn={true} />
-      {/* Blurred background */}
-      <div className="blur-[2px] brightness-50 pointer-events-none">
+      <div className="fixed inset-0 overflow-hidden pointer-events-none select-none">
         <BackgroundPage query={query} />
       </div>
-      {/* Modal overlay */}
+      <div className="fixed inset-0 bg-[rgba(23,22,20,0.88)] z-40 pointer-events-none" />
       <DetailsModal onClose={handleClose} />
     </div>
   );
