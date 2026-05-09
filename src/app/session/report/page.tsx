@@ -277,7 +277,7 @@ function ReportContent() {
                   key={tab}
                   type="button"
                   onClick={() => setActiveTab(i)}
-                  className="px-4 h-[32px] rounded-[8px] text-[14px] font-semibold tracking-[-0.14px] transition-all"
+                  className="px-4 h-[32px] rounded-[8px] text-[14px] font-semibold tracking-[-0.14px]"
                   style={
                     active
                       ? { background: ACCENT, color: "#f7f6f2" }

@@ -6,6 +6,7 @@ import { Search, ChevronRight, SlidersHorizontal, AlertTriangle, Check, Trending
 import Navbar from "@/components/Navbar";
 import Lottie from "lottie-react";
 import loader09Animation from "@/assets/loader09.json";
+import typingLoader from "@/assets/loader-20.json";
 
 import cartographerImg from "@/assets/gemini-cartographer.png";
 import methodologistImg from "@/assets/chatgpt-methodologist.png";
@@ -34,7 +35,7 @@ function AgentImg({ name, size = 28 }: { name: string; size?: number }) {
 
 /* ── Guardian spinner ────────────────────────────────────────── */
 function GuardianSpinner() {
-  return <Lottie animationData={loader09Animation} loop autoplay style={{ width: 22, height: 22 }} />;
+  return <Lottie animationData={loader09Animation} loop autoplay style={{ width: 32, height: 32 }} />;
 }
 
 /* ── Messages (Conversation tab) ─────────────────────────────── */
@@ -227,10 +228,8 @@ function Sidebar() {
       >
         <button
           type="button"
-          className="w-full h-[52px] rounded-[8px] text-text-primary text-[16px] font-medium transition-colors"
+          className="w-full h-[52px] rounded-[8px] text-text-primary text-[16px] font-medium"
           style={{ background: ACCENT }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "#a8512f"; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = ACCENT; }}
         >
           Start new session
         </button>
@@ -390,7 +389,7 @@ function ChatContent() {
                 style={{ background: "#33251e", border: "0.5px solid #c15f3c" }}
               >
                 <span style={{ color: ACCENT }}>Confidence</span>
-                <span style={{ color: ACCENT }}>•••</span>
+                <Lottie animationData={typingLoader} loop autoplay style={{ width: 40, height: 20 }} />
               </div>
               {/* 0 Flags */}
               <div
@@ -442,10 +441,10 @@ function ChatContent() {
                 <div key={msg.agent} className="animate-fade-in">
                   <div className="flex items-center gap-2 mb-2">
                     <AgentImg name={msg.agent} size={28} />
-                    <h3 className={`font-serif font-bold text-[15px] agent-name-${msg.agent}`}>{msg.agent}</h3>
+                    <h3 className="font-serif font-bold text-[15px]" style={{ color: ACCENT }}>{msg.agent}</h3>
                   </div>
                   <div className="pl-9">
-                    <div className="text-text-primary text-[14px] leading-relaxed space-y-1">
+                    <div className="text-text-primary text-[16px] leading-relaxed space-y-1">
                       {msg.parts.map((part, j) =>
                         typeof part === "string" ? (
                           <p key={j}>{part}</p>
